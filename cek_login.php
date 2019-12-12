@@ -50,26 +50,5 @@ if(mysqli_num_rows($data) == 1 ){
 			header("location:index.php?pesan=gagal");
 		}
 }
-// else if(mysqli_num_rows($data2)==1){
-// 	$_SESSION['nim']= $mahasiswa['nim'];
-// 	$_SESSION['nama'] = $mahasiswa['nama'];
-// 	$_SESSION['email'] = $mahasiswa['email'];
-// 	$_SESSION['no_hp'] = $mahasiswa['no_hp'];
-// 	$_SESSION['alamat'] = $mahasiswa['alamat']; 
-// 	$_SESSION['status'] = "login";
-// 	header('location:mahasiswa/index.php');
-// }else if(mysqli_num_rows($data3) == 1){
-// 	$_SESSION['nidn'] = $dosen['nidn'];
-// 	$_SESSION['nama'] = $dosen['nama'];
-// 	$_SESSION['status'] = "login";
-// 	header('location:mahasiswa/index.php');
-// }
 
-// if($cek > 0){
-// 	$_SESSION['username'] = $username;
-// 	$_SESSION['status'] = "login";
-// 	header("location:admin/index.php");
-// }else{
-// 	header("location:index.php?pesan=gagal");
-// }
 ?>

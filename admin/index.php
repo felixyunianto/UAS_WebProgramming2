@@ -5,11 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Dashboard v1 | Gull Admin Template</title>
+    <title>Absensi || Politeknik Harapan Bersama</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet" />
     <link href="../assets/css/themes/lite-purple.min.css" rel="stylesheet" />
     <link href="../assets/css/plugins/perfect-scrollbar.min.css" rel="stylesheet" />
     <script src="../assets/js/plugins/jquery-3.3.1.min.js"></script>
+    <link rel="shortcut icon" href="../assets/images/logo-poltek.png" type="image/x-icon">
 </head>
 
 <body class="text-left">
@@ -49,7 +50,7 @@
                                 <i class="i-Lock-User mr-1"></i> <?php echo $_SESSION['nama']; ?>
                             </div>
                             <a class="dropdown-item">Account settings</a>
-                            <a class="dropdown-item" href="signin.html">Sign out</a>
+                            <a class="dropdown-item" href="../logout.php">Sign out</a>
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
         <div class="side-content-wrap">
             <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
                 <ul class="navigation-left">
-                    <li class="nav-item"><a class="nav-item-hold" href="#"><i class="nav-icon i-Bar-Chart"></i><span
+                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dashboard"><i class="nav-icon i-Bar-Chart"></i><span
                                 class="nav-text">Dashboard</span></a>
                         <div class="triangle"></div>
                     </li>
@@ -95,13 +96,16 @@
                     switch ($page) {
                         case 'mahasiswa':
                             include "./mahasiswa/index.php";
-                            break;		
+                            break;
+                        case 'dashboard':
+                            include "./dashboard/index.php";
+                        break;		
                         default:
                             echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
                             break;
                     }
                 }else{
-                    include "./mahasiswa/mahasiswa.php";
+                    include "./dashboard/index.php";
                 }
             ?>
                 <!-- end of main-content -->
