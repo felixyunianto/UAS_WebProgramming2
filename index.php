@@ -7,23 +7,13 @@
 	<link href="./assets/css/themes/lite-purple.min.css" rel="stylesheet" />
 	<link href="./assets/css/plugins/perfect-scrollbar.min.css" rel="stylesheet" />
 	<script src="./assets/js/plugins/jquery-3.3.1.min.js"></script>
-	<link rel="shortcut icon" href="../assets/images/logo-poltek.png" type="image/x-icon">
+	<link rel="shortcut icon" href="./assets/images/logo-poltek.png" type="image/x-icon">
 </head>
 
 <body style="background: url(./assets/images/background.jpg); background-size:cover; background-size: 100%">
 	<br />
 	<!-- cek pesan notifikasi -->
-	<?php 
-	if(isset($_GET['pesan'])){
-		if($_GET['pesan'] == "gagal"){
-			echo "Login gagal! username dan password salah!";
-		}else if($_GET['pesan'] == "logout"){
-			echo "<script>alert('Anda telah berhasil logout');</script>";
-		}else if($_GET['pesan'] == "belum_login"){
-			echo "Anda harus login untuk mengakses halaman admin";
-		}
-	}
-	?>
+	
 	<br />
 	<br />
 	<!--  -->
@@ -32,6 +22,17 @@
 			<div class="card mb-3" style="max-width: 400px; height: 300px; margin-top: 120px; opacity: 80%">
 				<div class="card-header" style="font-size: 25px"><b>Sign In</b></div>
 				<div class="card-body">
+				<?php 
+	if(isset($_GET['pesan'])){
+		if($_GET['pesan'] == "gagal"){
+			echo "Login gagal! username dan password salah!";
+		}else if($_GET['pesan'] == "logout"){
+			echo "<p style='color:red' >Logout Berhasil!</p>";
+		}else if($_GET['pesan'] == "belum_login"){
+			echo "Anda harus login untuk mengakses halaman admin";
+		}
+	}
+	?>
 					<form method="post" action="cek_login.php">
 
 						<input class="form-control" style="height: 40px; margin-bottom: 10px" type="text"
