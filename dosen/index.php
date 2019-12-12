@@ -30,7 +30,7 @@
                 <div></div>
                 <div></div>
             </div>
-            
+
             <div style="margin: auto"></div>
             <div class="header-part-right">
                 <!-- Full screen toggle -->
@@ -59,27 +59,10 @@
         <div class="side-content-wrap">
             <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
                 <ul class="navigation-left">
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dashboard"><i class="nav-icon i-Bar-Chart"></i><span
-                                class="nav-text">Dashboard</span></a>
+                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dashboard"><i
+                                class="nav-icon i-Bar-Chart"></i><span class="nav-text">Dashboard</span></a>
                         <div class="triangle"></div>
                     </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=mahasiswa"><i
-                                class="nav-icon i-Boy"></i><span class="nav-text">Mahasiswa</span></a>
-                        <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dosen"><i class="nav-icon i-Business-Man"></i><span
-                                class="nav-text">Dosen</span></a>
-                        <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="#"><i
-                                class="nav-icon i-Library"></i><span class="nav-text">Mata Kuliah</span></a>
-                        <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="#"><i
-                                class="nav-icon i-Computer-Secure"></i><span class="nav-text">Absensi</span></a>
-                        <div class="triangle"></div>
-                    </li>
-
                 </ul>
             </div>
 
@@ -90,27 +73,63 @@
             <!-- ============ Body content start ============= -->
             <div class="main-content">
                 <?php
-                if(isset($_GET['page'])){
-                    $page = $_GET['page'];
+                // if(isset($_GET['page'])){
+                //     $page = $_GET['page'];
                             
-                    switch ($page) {
-                        case 'mahasiswa':
-                            include "./mahasiswa/index.php";
-                            break;
-                        case 'dashboard':
-                            include "./dashboard/index.php";
-                        break;
-                        case 'dosen':
-                            include "./dosen/index.php";
-                        break;		
-                        default:
-                            echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
-                            break;
-                    }
-                }else{
-                    include "./dashboard/index.php";
-                }
+                //     switch ($page) {
+                //         case 'mahasiswa':
+                //             include "./mahasiswa/index.php";
+                //             break;
+                //         case 'dashboard':
+                //             include "./dashboard/index.php";
+                //         break;
+                //         case 'dosen':
+                //             include "./dosen/index.php";
+                //         break;		
+                //         default:
+                //             echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
+                //             break;
+                //     }
+                // }else{
+                //     include "./dashboard/index.php";
+                // }
+
+                
             ?>
+
+                <div class="row">
+                    <?php 
+                    include "../koneksi.php";
+
+                    $nidn_dosen = $_SESSION['nidn'];
+                    $query= $koneksi->query("SELECT * FROM matkul where nidn='$nidn_dosen'");
+                    while($row=$query->fetch_assoc()){
+                ?>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Absensi
+                            </div>
+                            <div class="card-body">
+
+                                <h5 class="card-title">
+                                    <?php
+                                        echo $row['nama_matkul'];
+                                    ?>
+                                </h5>
+                                <p class="card-text">
+                                    <?php
+                                    echo 'Semester &nbsp;'.$row['semester'];
+                            ?>
+                                </p>
+                                <a href="#" class="btn btn-primary">Absen</a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                </div>
                 <!-- end of main-content -->
             </div>
             <!-- Footer Start -->
@@ -130,7 +149,7 @@
             <!-- fotter end -->
         </div>
     </div><!-- ============ Search UI Start ============= -->
-    
+
     <!-- ============ Search UI End ============= -->
 
     <script src="../assets/js/plugins/bootstrap.bundle.min.js"></script>
@@ -169,7 +188,6 @@
             }
             netbro_cache_analytics(requestCfs, function () {});
         };
-        
     </script>
 </body>
 

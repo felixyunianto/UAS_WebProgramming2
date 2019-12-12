@@ -39,13 +39,13 @@ if(mysqli_num_rows($data) == 1 ){
 			$_SESSION['alamat'] = $mahasiswa['alamat']; 
 			$_SESSION['foto'] = $mahasiswa['foto'];
 			$_SESSION['status'] = "login";
-			header('location:nonadmin/index.php');
+			header('location:mahasiswa/index.php');
 		}else if(mysqli_num_rows($data3) == 1){
 			$_SESSION['nim'] = $mahasiswa['nim'];
 			$_SESSION['nidn'] = $dosen['nidn'];
 			$_SESSION['nama'] = $dosen['nama'];
 			$_SESSION['status'] = "login";
-			header('location:nonadmin/index.php');
+			header('location:dosen/index.php');
 		}else{
 			header("location:index.php?pesan=gagal");
 		}
