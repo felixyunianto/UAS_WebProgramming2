@@ -76,61 +76,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <!-- <center>
-                <table>
-                    <tr>
-                        <td>NIM</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" style="width: 250px" name="nim"></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td></td>
-                        <td>No Handphone</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" style="width: 250px" name="no_hp"></td>
-                    </tr>
-                    <tr>
-                        <td>Nama</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" name="nama"></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td></td>
-                        <td>Alamat</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" name="alamat"></td>
-                    </tr>
-                    <tr>
-                        <td>Kelas</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" name="kelas"></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td></td>
-                        <td>Semester</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" name="semester"></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>:</td>
-                        <td><input type="text" class="form-control" name="emails"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td colspan="3"><button style="margin:5px; width: 180px" onclick="tambahData()" class="btn btn-primary">SIMPAN</button></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </center> -->
+           
             <center><button onclick="tambahData()" class="btn btn-primary">SIMPAN</button></center>
 
         </div>

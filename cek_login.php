@@ -38,6 +38,7 @@ if(mysqli_num_rows($data) == 1 ){
 			$_SESSION['no_hp'] = $mahasiswa['no_hp'];
 			$_SESSION['alamat'] = $mahasiswa['alamat']; 
 			$_SESSION['foto'] = $mahasiswa['foto'];
+			$_SESSION['nama_matkul']= $matkul['nama_matkul'];
 			$_SESSION['status'] = "login";
 			header('location:mahasiswa/index.php');
 		}else if(mysqli_num_rows($data3) == 1){

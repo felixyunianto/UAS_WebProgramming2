@@ -30,17 +30,10 @@
                 <div></div>
                 <div></div>
             </div>
-            
+
             <div style="margin: auto"></div>
             <div class="header-part-right">
-                <!-- Full screen toggle -->
-                <!-- <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i> -->
-                <!-- Grid menu Dropdown -->
-
-                <!-- Notificaiton -->
-
-                <!-- Notificaiton End -->
-                <!-- User avatar dropdown -->
+                
                 <div class="dropdown">
                     <div class="user col align-self-end">
                         <img src="../assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown"
@@ -59,64 +52,37 @@
         <div class="side-content-wrap">
             <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
                 <ul class="navigation-left">
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dashboard"><i class="nav-icon i-Bar-Chart"></i><span
-                                class="nav-text">Dashboard</span></a>
+                    <li class="nav-item"><a class="nav-item-hold" href="index.php"><i
+                                class="nav-icon i-Bar-Chart"></i><span class="nav-text">Dashboard</span></a>
                         <div class="triangle"></div>
                     </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=mahasiswa"><i
-                                class="nav-icon i-Boy"></i><span class="nav-text">Mahasiswa</span></a>
-                        <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dosen"><i class="nav-icon i-Business-Man"></i><span
-                                class="nav-text">Dosen</span></a>
-                        <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=matakuliah"><i
-                                class="nav-icon i-Library"></i><span class="nav-text">Mata Kuliah</span></a>
-                        <div class="triangle"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-item-hold" href="#"><i
-                                class="nav-icon i-Computer-Secure"></i><span class="nav-text">Absensi</span></a>
-                        <div class="triangle"></div>
-                    </li>
-
                 </ul>
             </div>
 
             <div class="sidebar-overlay"></div>
         </div>
-        <!-- =============== Left side End ================-->
         <div class="main-content-wrap sidenav-open d-flex flex-column">
-            <!-- ============ Body content start ============= -->
             <div class="main-content">
-                <?php
-                if(isset($_GET['page'])){
-                    $page = $_GET['page'];
-                            
-                    switch ($page) {
-                        case 'mahasiswa':
-                            include "./mahasiswa/index.php";
-                            break;
-                        case 'dashboard':
-                            include "./dashboard/index.php";
-                        break;
-                        case 'dosen':
-                            include "./dosen/index.php";
-                        break;		
-                        case 'matakuliah':
-                            include "./matakuliah/index.php";
-                        break;
-                        default:
-                            echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
-                            break;
-                    }
-                }else{
-                    include "./dashboard/index.php";
-                }
-            ?>
-                <!-- end of main-content -->
+                <table>
+                    <tr>
+                        <td>Nama</td>
+                        <td>&nbsp; &nbsp; &nbsp; &nbsp; :</td>
+                        <td>&nbsp; &nbsp; &nbsp; &nbsp; <?php echo $_SESSION['nama'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>NIM</td>
+                        <td>&nbsp; &nbsp; &nbsp; &nbsp;:</td>
+                        <td>&nbsp; &nbsp; &nbsp; &nbsp;<?php echo $_SESSION['nim'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Kelas</td>
+                        <td>&nbsp; &nbsp; &nbsp; &nbsp;:</td>
+                        <td>&nbsp; &nbsp; &nbsp; &nbsp;<?php echo $_SESSION['kelas'] ?></td>
+                    </tr>
+                </table>
+
+                
             </div>
-            <!-- Footer Start -->
             <div class="flex-grow-1"></div>
             <div class="app-footer">
                 <div class="footer-bottom border-top pt-3 d-flex flex-column flex-sm-row align-items-center">
@@ -130,11 +96,9 @@
                     </div>
                 </div>
             </div>
-            <!-- fotter end -->
         </div>
-    </div><!-- ============ Search UI Start ============= -->
-    
-    <!-- ============ Search UI End ============= -->
+    </div>
+
 
     <script src="../assets/js/plugins/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>

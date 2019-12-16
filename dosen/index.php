@@ -59,7 +59,7 @@
         <div class="side-content-wrap">
             <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
                 <ul class="navigation-left">
-                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=dashboard"><i
+                    <li class="nav-item"><a class="nav-item-hold" href="index.php"><i
                                 class="nav-icon i-Bar-Chart"></i><span class="nav-text">Dashboard</span></a>
                         <div class="triangle"></div>
                     </li>
@@ -73,63 +73,25 @@
             <!-- ============ Body content start ============= -->
             <div class="main-content">
                 <?php
-                // if(isset($_GET['page'])){
-                //     $page = $_GET['page'];
+                if(isset($_GET['page'])){
+                    $page = $_GET['page'];
                             
-                //     switch ($page) {
-                //         case 'mahasiswa':
-                //             include "./mahasiswa/index.php";
-                //             break;
-                //         case 'dashboard':
-                //             include "./dashboard/index.php";
-                //         break;
-                //         case 'dosen':
-                //             include "./dosen/index.php";
-                //         break;		
-                //         default:
-                //             echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
-                //             break;
-                //     }
-                // }else{
-                //     include "./dashboard/index.php";
-                // }
+                    switch ($page) {
+                        case 'absensi':
+                            include "./absen/index.php";
+                            break;
+                        default:
+                            echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";
+                            break;
+                    }
+                }else{
+                    include "./dosen.php";
+                }
 
                 
             ?>
 
-                <div class="row">
-                    <?php 
-                    include "../koneksi.php";
-
-                    $nidn_dosen = $_SESSION['nidn'];
-                    $query= $koneksi->query("SELECT * FROM matkul where nidn='$nidn_dosen'");
-                    while($row=$query->fetch_assoc()){
-                ?>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                Absensi
-                            </div>
-                            <div class="card-body">
-
-                                <h5 class="card-title">
-                                    <?php
-                                        echo $row['nama_matkul'];
-                                    ?>
-                                </h5>
-                                <p class="card-text">
-                                    <?php
-                                    echo 'Semester &nbsp;'.$row['semester'];
-                            ?>
-                                </p>
-                                <a href="#" class="btn btn-primary">Absen</a>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                    }
-                    ?>
-                </div>
+                
                 <!-- end of main-content -->
             </div>
             <!-- Footer Start -->

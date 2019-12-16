@@ -12,10 +12,10 @@
     <div class="container">
         <table class="table table-striped table-hover" id="table-mahasiswa">
             <thead class="thead-dark">
+                <th style="text-align:center">ID Mata Kuliah</th>
+                <th style="text-align:center">Nama Mata Kuliah</th>
                 <th style="text-align:center">NIDN</th>
-                <th style="text-align:center">Nama</th>
-                <th style="text-align:center">Mata Kuliah</th>
-                <th style="text-align:center">Alamat</th>
+                <th style="text-align:center">Semester</th>
             </thead>
             <tbody id="barisData">
 
@@ -27,15 +27,15 @@
         $.ajax({
             type: "GET",
             data: "",
-            url: "./dosen/ambilData.php",
+            url: "./matakuliah/ambilData.php",
             success: function (result) {
                 var objResult = JSON.parse(result);
                 $.each(objResult, function (key, val) {
                     var barisBaru = $("<tr>");
-                    barisBaru.html("<td style='text-align: center'>" + val.nidn +
-                        "</td><td style='text-align: center'>" + val.nama +
-                        "</td><td style='text-align: center'>" + val
-                        .mata_kuliah + "</td><td style='text-align: center'>" + val.alamat +
+                    barisBaru.html("<td style='text-align: center'>" + val.id_matkul +
+                        "</td><td style='text-align: center'>" + val.nama_matkul +
+                        "</td><td style='text-align: center'>" + val.nidn +
+                        "</td><td style='text-align: center'>" + val.semester +
                         "</td>");
                     var dataHandler = $("#barisData");
                     dataHandler.append(barisBaru);
