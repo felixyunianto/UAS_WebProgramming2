@@ -53,7 +53,7 @@
             var col2= currow.find('td:eq(1)').text();
             var col3= currow.find('td:eq(2)').text();
 
-            var result = col1+'\n'+col2+'\n'+col3;
+            var result = col1+'\n'+col2+'\n'+col3;  
             alert(result);
         });
         

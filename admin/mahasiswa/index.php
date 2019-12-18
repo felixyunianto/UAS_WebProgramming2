@@ -103,7 +103,10 @@
 
     </div>
 
+
     <script type="text/javascript">
+    getData();
+
         function tambahData() {
             var nim = $("[name='nim']").val();
             var nama = $("[name='nama']").val();
@@ -121,12 +124,17 @@
                 success: function (result) {
                     var objResult=JSON.parse(result);
                     $("#pesan").html(objResult.pesan);
+
+                    getData();
                 }
             });
         }
 
+        function getData(){
+            var dataHandler = $("#barisData");
+            dataHandler.html("");
 
-        $.ajax({
+            $.ajax({
             type: "GET",
             data: "",
             url: "./mahasiswa/ambilData.php",
@@ -141,11 +149,14 @@
                         "</td><td style='text-align: center'>" + val.no_hp +
                         "</td><td style='text-align: center'>" + val.alamat +
                         "</td><td style='text-align: center'>" + val.semester + "</td>");
-                    var dataHandler = $("#barisData");
+                    
                     dataHandler.append(barisBaru);
                 })
             }
         });
+        }
+
+        
     </script>
 
 </body>

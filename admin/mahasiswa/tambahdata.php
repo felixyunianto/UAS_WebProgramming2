@@ -26,6 +26,15 @@ if($nim==""){
     $result['pesan']="Alamat Harus diisi!";
 }elseif($semester==""){
     $result['pesan']="Semester Harus diisi!";
+}else {
+    $queryResult = $koneksi->query("INSERT INTO mahasiswa (nim,nama,kelas,email,no_hp,alamat,semester)VALUES ('".$nim."','".$nama."','".$kelas."',
+    '".$email."','".$no_hp."','".$alamat."','".$semester."')");
+
+    if($queryResult){
+        $result['pesan'] = "Data Berhasil ditambahkan!";
+    }else{
+        $result['pesan'] = "Data Gagal ditambahkan!";
+    }
 }
 
 
