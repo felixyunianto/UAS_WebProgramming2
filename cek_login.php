@@ -13,9 +13,9 @@ $password = $_POST['password'];
 $data = mysqli_query($koneksi,"select * from admin where username='$username' and password='$password'");
 $admin = mysqli_fetch_array($data);
 
-$data2 = mysqli_query($koneksi, "select * from mahasiswa where nim='$username' and nim='$password'" );
+$data2 = mysqli_query($koneksi, "select * from mahasiswa where nim='$username' and password='$password'" );
 $mahasiswa = mysqli_fetch_array($data2);
-$data3 = mysqli_query($koneksi, "select * from dosen where nidn='$username'and nidn='$password'");
+$data3 = mysqli_query($koneksi, "select * from dosen where nidn='$username'and password='$password'");
 $dosen = mysqli_fetch_array($data3);
 $data4 = mysqli_query($koneksi, "select * from matkul");
 $matkul = mysqli_fetch_array($data4);
@@ -37,8 +37,8 @@ if(mysqli_num_rows($data) == 1 ){
 			$_SESSION['email'] = $mahasiswa['email'];
 			$_SESSION['no_hp'] = $mahasiswa['no_hp'];
 			$_SESSION['alamat'] = $mahasiswa['alamat']; 
-			$_SESSION['foto'] = $mahasiswa['foto'];
 			$_SESSION['nama_matkul']= $matkul['nama_matkul'];
+			$_SESSION['semester'] = $mahasiswa['semester'];
 			$_SESSION['status'] = "login";
 			header('location:mahasiswa/index.php');
 		}else if(mysqli_num_rows($data3) == 1){

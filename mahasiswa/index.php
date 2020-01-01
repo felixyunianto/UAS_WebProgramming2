@@ -1,3 +1,5 @@
+<?php include "../koneksi.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="">
 
@@ -33,7 +35,7 @@
 
             <div style="margin: auto"></div>
             <div class="header-part-right">
-                
+
                 <div class="dropdown">
                     <div class="user col align-self-end">
                         <img src="../assets/images/faces/1.jpg" id="userDropdown" alt="" data-toggle="dropdown"
@@ -81,7 +83,47 @@
                     </tr>
                 </table>
 
+                <?php 
                 
+                $semester = $_SESSION['semester'];
+
+
+
+                ?>
+
+                
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Matkul</th>
+                        </tr>
+                    </thead>
+                <?php
+
+                    $nim = $_SESSION['nim'];
+                    
+                    $query = "SELECT absen.id_matkul, nim, COUNT(absen.status) as kehadiran, matkul.id_matkul, 
+                    nama_matkul, nidn, semester FROM absen INNER JOIN matkul ON absen.id_matkul = matkul.id_matkul 
+                    WHERE nim=$nim GROUP BY absen.id_matkul ";
+                    $matkul = mysqli_query($koneksi, $query);
+                    while($m = mysqli_fetch_array($matkul)){
+                ?>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $m['nama_matkul'] ?></td>
+                            <td>
+                            <?php 
+                                $jumlah = $m['kehadiran'];
+
+                                $hasil  = round($jumlah/14 * 100);
+
+                                echo $hasil;
+                            ?></td>
+                        </tr>
+                    </tbody>
+                <?php } ?>
+                </table>
             </div>
             <div class="flex-grow-1"></div>
             <div class="app-footer">
@@ -136,7 +178,6 @@
             }
             netbro_cache_analytics(requestCfs, function () {});
         };
-        
     </script>
 </body>
 

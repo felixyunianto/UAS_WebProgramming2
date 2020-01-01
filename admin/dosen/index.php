@@ -1,49 +1,120 @@
+<?php 
+    include "koneksi.php";
+    $query = "SELECT * FROM dosen";
+    $result = mysqli_query($koneksi, $query);
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
-        <table class="table table-striped table-hover" id="table-mahasiswa">
-            <thead class="thead-dark">
-                <th style="text-align:center">NIDN</th>
-                <th style="text-align:center">Nama</th>
-                <th style="text-align:center">Mata Kuliah</th>
-                <th style="text-align:center">Alamat</th>
-            </thead>
-            <tbody id="barisData">
-
-            </tbody>
-        </table>
+    <br /> <br />
+    <div class="container" style="width: 700px">
+        <h3 align="center"> Data Dosen </h3>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th width="70%">Nama Dosen</th>
+                    <th width="30%">Lihat</th>
+                </tr>
+                <?php
+                    while($row = mysqli_fetch_array($result)){
+                ?>
+                <tr>
+                    <td><?php echo $row['nama'] ?></td>
+                    <td><input type="button" value="Lihat" name="view" id="<?php echo $row['nidn'] ?>" class="btn btn-info btn-xs view_data"></td>
+                </tr>
+                <?php        
+                    }
+                ?>
+            </table>
+        </div>
     </div>
-
-    <script type="text/javascript">
-        $.ajax({
-            type: "GET",
-            data: "",
-            url: "./dosen/ambilData.php",
-            success: function (result) {
-                var objResult = JSON.parse(result);
-                $.each(objResult, function (key, val) {
-                    var barisBaru = $("<tr>");
-                    barisBaru.html("<td style='text-align: center'>" + val.nidn +
-                        "</td><td style='text-align: center'>" + val.nama +
-                        "</td><td style='text-align: center'>" + val
-                        .mata_kuliah + "</td><td style='text-align: center'>" + val.alamat +
-                        "</td>");
-                    var dataHandler = $("#barisData");
-                    dataHandler.append(barisBaru);
-                })
-            }
-        });
-    </script>
-
 </body>
 
 </html>
+
+<div id="dataModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detail Dosen</h4>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="dosen_detail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="modal fade" id="add_data_Modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data</h4>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="insert_form">
+                    <div class="form-group">
+                        <label>NIDN</label>
+                        <input type="text" class="form-control" id="nidn" name="nidn">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Dosen</label>
+                        <input type="text" class="form-control" id="nama" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Mata Kuliah </label>
+                        <input type="text" class="form-control" id="mata_kuliah" name="mata_kuliah">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea type="text" class="form-control" id="alamat" name="alamat"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" style="float: right" id="insert" name="insert" Value="Insert">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.view_data').click(function(){
+            var nidn_dosen = $(this).attr("id");
+            
+            $.ajax({
+                url: "dosen/select.php",
+                method: "post",
+                data:{nidn_dosen:nidn_dosen},
+                success:function(data){
+                    $('#dosen_detail').html(data);
+                    $('#dataModal').modal('show');
+                }
+
+            })
+            
+        })
+    })
+</script>

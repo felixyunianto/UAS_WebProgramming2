@@ -39,13 +39,16 @@
 							name="username" placeholder="Masukkan username">
 						<input class="form-control" style="height: 40px; margin-bottom: 10px" type="password"
 							name="password" placeholder="Masukkan password">
-						<p style="color: blue; text-align:right">Forgot Password ?</p>
+						<a style="color: blue; float: right" href="forget.php">Forgot Password ?</a><br>
 						<input type="submit" value="LOGIN" class="btn btn-primary">
 					</form>
 				</div>
 			</div>
 		</div>
 	</center>
+
+
+
 
 	<script src="./assets/js/plugins/bootstrap.bundle.min.js"></script>
 	<script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
