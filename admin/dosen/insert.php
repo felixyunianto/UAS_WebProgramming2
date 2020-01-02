@@ -1,43 +1,65 @@
 <?php
     include "koneksi.php";
+
     if(!empty($_POST))
     {
         $output = '';
-        $nidn = $_POST['nidn'];
-        $nama = $_POST['nama'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $mata_kuliah = $_POST['mata_kuliah'];
-        $alamat = $_POST['alamat'];
+        $message = '';
+        $nidn = mysqli_real_escape_string($koneksi, $_POST['nidn_dosen']);
+        $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+        $email = mysqli_real_escape_string($koneksi, $_POST['email']);
+        $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+        $mata_kuliah = mysqli_real_escape_string($koneksi, $_POST['mata_kuliah']);
+        $alamat = mysqli_real_escape_string($koneksi, $_POST['alamat']);
 
-        $query = "INSERT INTO dosen (nidn,nama,email,password,mata_kuliah,alamat) VALUES ('$nidn','$nama','$email','$password','$mata_kuliah','$alamat')";
+        
+        if($_nidn !== ""){
+            $query = "UPDATE dosen 
+            SET nama='$nama',
+            email='$email',
+            password='$password',
+            mata_kuliah='$mata_kuliah',
+            alamat='$alamat'
+            WHERE nidn='$nidn'";
+            $message = "Data telah diubah";
+        }else {
+            $query = "INSERT INTO dosen (nidn, nama, email, password, mata_kuliah, alamat) 
+                VALUES (NULL,'$nama','$email','$password','$mata_kuliah','$alamat')";
+                $message = "Data telah ditambahkan!";
+        }
+        
+        
+        
 
-        if(mysqli_query($koneksi, $query)){
-            $output .= '<label class="text-success">Data telah ditambahkan</label>';
+        if(mysqli_query($koneksi, $query))
+        {
+            $output .= '<label class="text-success">'.$message.'</label>';
             $select_query = "SELECT * FROM dosen ORDER BY nidn DESC";
-            $result = mysqli_query($koneksi, $query);
+            $result = mysqli_query($koneksi, $select_query);
             $output .= '
-                <table class="table table-bordered">
-                    <tr>
-                        <td width="70%">Nama Dosen</td>
-                        <td width="30%">Lihat</td>
-                    </tr>
-            ';
+            <table class="table table-bordered">
+            <tr>
+                <th width="55%">Nama Dosen</th>
+                <th width="15%">Edit</th>
+                <th width="15%">Hapus</th>
+                <th width="15%">Lihat</th>
+            </tr>
+            '; 
             while($row = mysqli_fetch_array($result)){
-                $output = '
-                <tr>
-                    <td>'.$row["nama"].'</td>
-                    <td>
-                    <button type="button" name="view" value="'. $row['nidn'].'" id="nidn" class="btn btn-primary view_data">
-                    Lihat
-                    </button>
-                    </td>
-                </tr>
+                $output .= '
+                    <tr>
+                        <td>'.$row["nama"].'</td>
+                        <td><input type="button" value="Edit" name="edit" id="'.$row['nidn'].'"
+                            class="btn btn-info btn-xs edit_data"></td>
+                        <td><input type="button" value="Hapus" name="hapus" id="'.$row['nidn'].'"
+                            class="btn btn-info btn-xs hapus_data"></td>
+                        <td><input type="button" value="Lihat" name="view" id="'.$row['nidn'].'"
+                            class="btn btn-info btn-xs view_data"></td>
+                    </tr>
                 ';
-}
-$output .= '</table>';
-}
-echo $output;
-
-}
+            }
+            $output .= '</table>';
+        }
+        echo $output;
+    }
 ?>

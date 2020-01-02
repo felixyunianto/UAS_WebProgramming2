@@ -31,7 +31,7 @@ if(isset($_POST["nidn_dosen"]))
             </tr>
             <tr>
                 <td width="30%"><label>Mata Kuliah</label></td>
-                <td width="70%">'.$row['Mata_kuliah'].'</td>
+                <td width="70%">'.$row['mata_kuliah'].'</td>
             </tr>
             <tr>
                 <td width="30%"><label>Alamat</label></td>

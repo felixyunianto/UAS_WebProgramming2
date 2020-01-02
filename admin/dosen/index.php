@@ -1,6 +1,6 @@
 <?php 
     include "koneksi.php";
-    $query = "SELECT * FROM dosen";
+    $query = "SELECT * FROM dosen WHERE deleted='undeleted'ORDER BY nidn DESC";
     $result = mysqli_query($koneksi, $query);
 ?>
 
@@ -16,19 +16,29 @@
     <br /> <br />
     <div class="container" style="width: 700px">
         <h3 align="center"> Data Dosen </h3>
-        <br />
-        <div class="table-responsive">
+        <br/>
+        <button style="float:right" type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-info btn-xs"> Tambah </button>
+        <br/><br/>
+        <div class="table-responsive" id="dosen_table">
             <table class="table table-bordered">
                 <tr>
-                    <th width="70%">Nama Dosen</th>
-                    <th width="30%">Lihat</th>
+                    <th width="55%">Nama Dosen</th>
+                    <th width="15%">Edit</th>
+                    <th width="15%">Edit</th>
+                    <th width="15%">Lihat</th>
                 </tr>
                 <?php
                     while($row = mysqli_fetch_array($result)){
                 ?>
                 <tr>
                     <td><?php echo $row['nama'] ?></td>
-                    <td><input type="button" value="Lihat" name="view" id="<?php echo $row['nidn'] ?>" class="btn btn-info btn-xs view_data"></td>
+                    <td><input type="button" value="Edit" name="edit" id="<?php echo $row['nidn'] ?>"
+                            class="btn btn-info btn-xs edit_data"></td>
+                    <td><input type="button" value="Hapus" name="hapus" id="<?php echo $row['nidn'] ?>"
+                            class="btn btn-info btn-xs hapus_data"></td>
+                    <td><input type="button" value="Lihat" name="view" id="<?php echo $row['nidn'] ?>"
+                            class="btn btn-info btn-xs view_data"></td>
+
                 </tr>
                 <?php        
                     }
@@ -55,66 +65,134 @@
         </div>
     </div>
 </div>
-<!-- 
+
 <div class="modal fade" id="add_data_Modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Tambah Data</h4>
-                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" id="insert_form">
+            <form action="" method="post" id="insert_form">
+            <input type="hidden" name="nidn_dosen" id="nidn_dosen">
                     <div class="form-group">
-                        <label>NIDN</label>
-                        <input type="text" class="form-control" id="nidn" name="nidn">
-                    </div>
-                    <div class="form-group">
-                        <label>Nama Dosen</label>
+                        <label for="">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama">
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
+                        <label for="">Email</label>
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label for="">Password</label>
                         <input type="password" class="form-control" id="password" name="password">
                     </div>
                     <div class="form-group">
-                        <label>Mata Kuliah </label>
+                        <label for="">Mata Kuliah</label>
                         <input type="text" class="form-control" id="mata_kuliah" name="mata_kuliah">
                     </div>
                     <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea type="text" class="form-control" id="alamat" name="alamat"></textarea>
+                        <label for="">Alamat</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat">
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-primary" style="float: right" id="insert" name="insert" Value="Insert">
+                        
+                        <input type="submit" style="float:right;" id="insert" name="insert" value="Tambah" class="btn btn-success">
                     </div>
-                </form>
+            </form>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>
 
 
 <script>
     $(document).ready(function () {
-        $('.view_data').click(function(){
+
+        $('#add').click(function(){  
+           $('#insert').val("Insert");  
+           $('#insert_form')[0].reset();  
+      });
+
+        $(document).on('click', '.edit_data', function(){
             var nidn_dosen = $(this).attr("id");
-            
+
+            $.ajax({
+                url: "dosen/fetch.php",
+                method: "POST",
+                data:{nidn_dosen:nidn_dosen},
+                dataType: "json",
+                success: function(data){
+                    $('#nama').val(data.nama);
+                    $('#email').val(data.email);
+                    $('#password').val(data.password);
+                    $('#mata_kuliah').val(data.mata_kuliah);
+                    $('#alamat').val(data.alamat);
+                    $('#nidn_dosen').val(data.nidn);
+                    $('#insert').val("Edit")
+                    $('#add_data_Modal').modal("show")
+                }
+            })
+        })
+
+        $('#insert_form').on('submit', function(event){
+            event.preventDefault();
+            if($('#nama').val()== ''){
+                alert("Nama tidak boleh kosong!")
+            }else if($('#email').val() == ''){
+                alert("Email tidak boleh kosong!")
+            }else if($('#password').val() == ''){
+                alert("Password tidak boleh kosong!")
+            }else if($('#mata_kuliah').val() == ''){
+                alert("Mata Kuliah tidak boleh kosong!")
+            }else if($('#alamat').val() == ''){
+                alert("Alamat tidak boleh kosong!")
+            }else{
+                $.ajax({
+                    url: "dosen/insert.php",
+                    method: "POST",
+                    data: $('#insert_form').serialize(),
+                    success: function(data)
+                    {
+                        $('#insert_form')[0].reset()
+                        $('#add_data_Modal').modal('hide')
+                        $('#dosen_table').html(data)
+                    }
+                })
+            }
+        })
+
+        $('.view_data').click(function () {
+            var nidn_dosen = $(this).attr("id");
+
             $.ajax({
                 url: "dosen/select.php",
                 method: "post",
-                data:{nidn_dosen:nidn_dosen},
-                success:function(data){
+                data: {
+                    nidn_dosen: nidn_dosen
+                },
+                success: function (data) {
                     $('#dosen_detail').html(data);
                     $('#dataModal').modal('show');
                 }
 
             })
-            
+
+        })
+
+        $('.hapus_data').click(function(){
+            var nidn_dosen = $(this).attr("id");
+
+            $.ajax({
+                url: "dosen/soft_delete.php",
+                method: "POST",
+                data:{nidn_dosen:nidn_dosen},
+                success:function(){
+                    alert("Data Berhasil dihapus")
+                    location.reload(true)
+                }
+            })
         })
     })
 </script>

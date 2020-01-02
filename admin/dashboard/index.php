@@ -12,7 +12,7 @@
     <div class="breadcrumb">
         <h1 class="mr-2">Dashboard</h1>
         
-        <h1 id="time" style="margin-left:  1040px"></h1>
+        <h2 id="time" style="margin-left:  1040px"></h2>
     </div>
 
     <script type="text/javascript">

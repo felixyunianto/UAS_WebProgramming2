@@ -13,14 +13,14 @@ $password = $_POST['password'];
 $data = mysqli_query($koneksi,"select * from admin where username='$username' and password='$password'");
 $admin = mysqli_fetch_array($data);
 
-$data2 = mysqli_query($koneksi, "select * from mahasiswa where nim='$username' and password='$password'" );
+$data2 = mysqli_query($koneksi, "select * from mahasiswa where nim='$username' and nim='$password'" );
 $mahasiswa = mysqli_fetch_array($data2);
 $data3 = mysqli_query($koneksi, "select * from dosen where nidn='$username'and password='$password'");
 $dosen = mysqli_fetch_array($data3);
 $data4 = mysqli_query($koneksi, "select * from matkul");
 $matkul = mysqli_fetch_array($data4);
 // menghitung jumlah data yang ditemukan
-// $cek = mysqli_num_rows($data);
+
 if(mysqli_num_rows($data) == 1 ){
 	$_SESSION['id']= $admin['id'];
 	$_SESSION['username'] = $admin['username'];

@@ -93,10 +93,11 @@
 
                 
 
-                <table>
-                    <thead>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Nama Matkul</th>
+                            <th style="text-align: center">Nama Matkul</th>
+                            <th style="text-align: center">Kehadiran (%)</th>
                         </tr>
                     </thead>
                 <?php
@@ -111,8 +112,8 @@
                 ?>
                     <tbody>
                         <tr>
-                            <td><?php echo $m['nama_matkul'] ?></td>
-                            <td>
+                            <td style="text-align: center"><?php echo $m['nama_matkul'] ?></td>
+                            <td style="text-align: center">
                             <?php 
                                 $jumlah = $m['kehadiran'];
 
