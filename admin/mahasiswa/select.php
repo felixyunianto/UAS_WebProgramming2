@@ -1,10 +1,10 @@
 <?php
+    include "koneksi.php";
 
-include "koneksi.php";
-if(isset($_POST["nidn_dosen"]))
+    if(isset($_POST["nim_mahasiswa"]))
 {
     $output = '';
-    $query = "SELECT * FROM dosen WHERE nidn = '".$_POST["nidn_dosen"]."'";
+    $query = "SELECT * FROM mahasiswa WHERE nim = '".$_POST["nim_mahasiswa"]."'";
     $result = mysqli_query($koneksi , $query);
     $output .= '
     <div class="table-responsive">
@@ -14,21 +14,25 @@ if(isset($_POST["nidn_dosen"]))
     {
         $output .= '
             <tr>
-                <td width="30%"><label>NIDN</label></td>
-                <td width="70%">'.$row['nidn'].'</td>
+                <td width="30%"><label>NIM</label></td>
+                <td width="70%">'.$row['nim'].'</td>
             </tr>
             <tr>
                 <td width="30%"><label>Nama</label></td>
                 <td width="70%">'.$row['nama'].'</td>
             </tr>
             <tr>
-                <td width="30%"><label>Email</label></td>
-                <td width="70%">'.$row['email'].'</td>
+                <td width="30%"><label>Kelas</label></td>
+                <td width="70%">'.$row['kelas'].'</td>
             </tr>
             
             <tr>
-                <td width="30%"><label>Mata Kuliah</label></td>
-                <td width="70%">'.$row['mata_kuliah'].'</td>
+                <td width="30%"><label>Email</label></td>
+                <td width="70%">'.$row['email'].'</td>
+            </tr>
+            <tr>
+                <td width="30%"><label>No Handphone</label></td>
+                <td width="70%">'.$row['no_hp'].'</td>
             </tr>
             <tr>
                 <td width="30%"><label>Alamat</label></td>

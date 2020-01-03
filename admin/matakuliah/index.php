@@ -23,27 +23,6 @@
         </table>
     </div>
 
-    <script type="text/javascript">
-        $.ajax({
-            type: "GET",
-            data: "",
-            url: "./matakuliah/ambilData.php",
-            success: function (result) {
-                var objResult = JSON.parse(result);
-                $.each(objResult, function (key, val) {
-                    var barisBaru = $("<tr>");
-                    barisBaru.html("<td style='text-align: center'>" + val.id_matkul +
-                        "</td><td style='text-align: center'>" + val.nama_matkul +
-                        "</td><td style='text-align: center'>" + val.nidn +
-                        "</td><td style='text-align: center'>" + val.semester +
-                        "</td>");
-                    var dataHandler = $("#barisData");
-                    dataHandler.append(barisBaru);
-                })
-            }
-        });
-    </script>
-
 </body>
 
 </html>

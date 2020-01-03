@@ -1,3 +1,9 @@
+<?php 
+    include "koneksi.php";
+    $query = "SELECT * FROM mahasiswa WHERE deleted='undeleted' ORDER BY nim DESC";
+    $result = mysqli_query($koneksi, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,156 +15,76 @@
 </head>
 
 <body>
-    <div class="container">
+<div class="container" style="width: 700px">
+        <h3 align="center"> Data Mahasiswa </h3>
+        <br/>
+        <button style="float:right" type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-info btn-xs"> Tambah </button>
+        <br/><br/>
+        <div class="table-responsive" id="mahasiswa_table">
+            <table class="table table-bordered">
+                <tr>
+                    <th width="55%">Nama Mahasiswa</th>
+                    <!-- <th width="15%">Edit</th>
+                    <th width="15%">Hapus</th> -->
+                    <th width="15%">Lihat</th>
+                </tr>
+                <?php
+                    while($row = mysqli_fetch_array($result)){
+                ?>
+                <tr>
+                    <td><?php echo $row['nama'] ?></td>
+                    <!-- <td><input type="button" value="Edit" name="edit" id="<?php echo $row['nidn'] ?>"
+                            class="btn btn-info btn-xs edit_data"></td>
+                    <td><input type="button" value="Hapus" name="hapus" id="<?php echo $row['nidn'] ?>"
+                            class="btn btn-info btn-xs hapus_data"></td> -->
+                    <td><input type="button" value="Lihat" name="view" id="<?php echo $row['nim'] ?>"
+                            class="btn btn-info btn-xs view_data"></td>
 
-        <div class="jumbotron">
-            <h1 class="display-7" style="text-align:center">Tambah Data</h1>
-            <hr>
-            <center><strong><p style="color: red; font-size:20px" id="pesan"></p></strong></center>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-1"></div>
-                <div class="col-md-1">
-                    <label for="">NIM</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="nim">
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-1">
-                    <label for="">No.Hp</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="no_hp">
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-1"></div>
-                <div class="col-md-1">
-                    <label for="">Nama</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="nama">
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-1">
-                    <label for="">Alamat</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="alamat">
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-1"></div>
-                <div class="col-md-1">
-                    <label for="">Kelas</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="kelas">
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-1">
-                    <label for="">Semester </label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="semester">
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-md-1"></div>
-                <div class="col-md-1">
-                    <label for="">Email</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" name="email">
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-           
-            <center><button onclick="tambahData()" class="btn btn-primary">SIMPAN</button></center>
-
+                </tr>
+                <?php        
+                    }
+                ?>
+            </table>
         </div>
-
-        <!-- Form TAMBAH DATA -->
-
-
-        <!-- END Form TAMBAH DATA -->
-
-        <table class="table table-striped table-hover" id="table-mahasiswa">
-            <thead class="thead-dark">
-                <th style="text-align:center">NIM</th>
-                <th style="text-align:center">Nama</th>
-                <th style="text-align:center">Kelas</th>
-                <th style="text-align:center">Email</th>
-                <th style="text-align:center">No handphone</th>
-                <th style="text-align:center">Alamat</th>
-                <th style="text-align:center">Semester</th>
-            </thead>
-            <tbody id="barisData">
-
-            </tbody>
-        </table>
-
     </div>
 
-
-    <script type="text/javascript">
-    getData();
-
-        function tambahData() {
-            var nim = $("[name='nim']").val();
-            var nama = $("[name='nama']").val();
-            var kelas = $("[name='kelas']").val();
-            var email = $("[name='email']").val();
-            var no_hp = $("[name='no_hp']").val();
-            var alamat = $("[name='alamat']").val();
-            var semester = $("[name='semester']").val();
-
-            $.ajax({
-                type: "POST",
-                data: "nim=" + nim + "&nama=" + nama + "&kelas=" + kelas + "&email=" + email + "&no_hp=" +
-                    no_hp + "&alamat=" + alamat + "&semester=" + semester,
-                url: "./mahasiswa/tambahdata.php",
-                success: function (result) {
-                    var objResult=JSON.parse(result);
-                    $("#pesan").html(objResult.pesan);
-
-                    getData();
-                }
-            });
-        }
-
-        function getData(){
-            var dataHandler = $("#barisData");
-            dataHandler.html("");
-
-            $.ajax({
-            type: "GET",
-            data: "",
-            url: "./mahasiswa/ambilData.php",
-            success: function (result) {
-                var objResult = JSON.parse(result);
-                $.each(objResult, function (key, val) {
-                    var barisBaru = $("<tr>");
-                    barisBaru.html("<td style='text-align: center'>" + val.nim +
-                        "</td><td style='text-align: center'>" + val.nama +
-                        "</td><td style='text-align: center'>" + val
-                        .kelas + "</td><td style='text-align: center'>" + val.email +
-                        "</td><td style='text-align: center'>" + val.no_hp +
-                        "</td><td style='text-align: center'>" + val.alamat +
-                        "</td><td style='text-align: center'>" + val.semester + "</td>");
-                    
-                    dataHandler.append(barisBaru);
-                })
-            }
-        });
-        }
-
-        
-    </script>
 
 </body>
 
 </html>
+
+<div id="dataModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detail Mahasiswa</h4>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="mahasiswa_detail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        $('.view_data').click(function(){
+            var nim_mahasiswa = $(this).attr("id");
+
+            $.ajax({
+                url: "mahasiswa/select.php",
+                method: "POST",
+                data:{nim_mahasiswa:nim_mahasiswa},
+                success: function(data){
+                    $('#mahasiswa_detail').html(data)
+                    $('#dataModal').modal('show')
+                }
+            })
+        })
+
+    })
+</script>
