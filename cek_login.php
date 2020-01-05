@@ -27,7 +27,9 @@ $matkul = mysqli_fetch_array($data4);
 if(mysqli_num_rows($data) == 1 ){
 	date_default_timezone_set("Asia/Jakarta");
 	$time = date('Y-m-d H:i:s');
-	$query_admin = "INSERT INTO log_aktivitas VALUES('.$time.','Login','".$_SESSION['nama']."')";
+	$query_admin = "INSERT INTO log_aktivitas VALUES('$time','Login','".$_SESSION['nama']."')";
+	// echo $query_admin;
+	mysqli_query($koneksi, $query_admin);
 	$_SESSION['id']= $admin['id'];
 	$_SESSION['username'] = $admin['username'];
 	$_SESSION['password'] = $admin['password'];
@@ -42,6 +44,12 @@ if(mysqli_num_rows($data) == 1 ){
 	
 }else{
 	if(mysqli_num_rows($data2)==1){
+			date_default_timezone_set("Asia/Jakarta");
+			$time = date('Y-m-d H:i:s');
+			$query_mahasiswa = "INSERT INTO log_aktivitas VALUES('$time','Login','".$mahasiswa['nama']."')";
+			// echo $query_mahasiswa;
+			mysqli_query($koneksi, $query_mahasiswa);
+			
 			$_SESSION['nim']= $mahasiswa['nim'];
 			$_SESSION['nama'] = $mahasiswa['nama'];
 			$_SESSION['kelas'] = $mahasiswa['kelas'];
@@ -53,6 +61,10 @@ if(mysqli_num_rows($data) == 1 ){
 			$_SESSION['status'] = "login";
 			header('location:mahasiswa/index.php');
 		}else if(mysqli_num_rows($data3) == 1){
+			date_default_timezone_set("Asia/Jakarta");
+			$time = date('Y-m-d H:i:s');
+			$query_dosen = "INSERT INTO log_aktivitas VALUES('$time','Login','".$dosen['nama']."')";
+			mysqli_query($koneksi, $query_dosen);
 			$_SESSION['nim'] = $mahasiswa['nim'];
 			$_SESSION['nidn'] = $dosen['nidn'];
 			$_SESSION['nama'] = $dosen['nama'];
