@@ -9,6 +9,9 @@ include 'koneksi.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+
+
+
 // menyeleksi data admin dengan username dan password yang sesuai
 $data = mysqli_query($koneksi,"select * from admin where username='$username' and password='$password'");
 $admin = mysqli_fetch_array($data);
@@ -22,12 +25,20 @@ $matkul = mysqli_fetch_array($data4);
 // menghitung jumlah data yang ditemukan
 
 if(mysqli_num_rows($data) == 1 ){
+	date_default_timezone_set("Asia/Jakarta");
+	$time = date('Y-m-d H:i:s');
+	$query_admin = "INSERT INTO log_aktivitas VALUES('.$time.','Login','".$_SESSION['nama']."')";
 	$_SESSION['id']= $admin['id'];
 	$_SESSION['username'] = $admin['username'];
 	$_SESSION['password'] = $admin['password'];
 	$_SESSION['nama'] = $admin['nama'];
 	$_SESSION['status'] = "login";
-	header('location:admin/index.php');
+	$masuk1 = header('location:admin/index.php');
+	if($masuk1){
+		while($record = mysqli_fetch_array($admin)){
+			
+		}
+	}
 	
 }else{
 	if(mysqli_num_rows($data2)==1){

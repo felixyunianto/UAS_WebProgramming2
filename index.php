@@ -23,7 +23,10 @@
 				<div class="card-header" style="font-size: 25px"><b>Sign In</b></div>
 				<div class="card-body">
 				<?php 
+				include "koneksi.php";
 	if(isset($_GET['pesan'])){
+
+
 		if($_GET['pesan'] == "gagal"){
 			echo "Login gagal! username dan password salah!";
 		}else if($_GET['pesan'] == "logout"){

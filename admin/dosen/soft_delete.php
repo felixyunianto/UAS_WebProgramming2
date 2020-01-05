@@ -5,7 +5,7 @@ if(isset($_POST["nidn_dosen"]))
 {
     $output = '';
     $deleted = 'deleted';
-    $query = "UPDATE dosen SET deleted='$deleted' WHERE nidn = '".$_POST["nidn_dosen"]."'";
+    $query = "UPDATE dosen SET status='$deleted' WHERE nidn = '".$_POST["nidn_dosen"]."'";
     $result = mysqli_query($koneksi , $query);
     if($result){
         $output .= '<label class="text-success">'.$message.'</label>';

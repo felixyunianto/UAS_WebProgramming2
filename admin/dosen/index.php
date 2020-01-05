@@ -1,6 +1,6 @@
 <?php 
     include "koneksi.php";
-    $query = "SELECT * FROM dosen WHERE deleted='undeleted'ORDER BY nidn DESC";
+    $query = "SELECT * FROM dosen WHERE status='undeleted'ORDER BY nidn DESC";
     $result = mysqli_query($koneksi, $query);
 ?>
 
@@ -24,7 +24,7 @@
                 <tr>
                     <th width="55%">Nama Dosen</th>
                     <th width="15%">Edit</th>
-                    <th width="15%">Edit</th>
+                    <th width="15%">Hapus</th>
                     <th width="15%">Lihat</th>
                 </tr>
                 <?php
@@ -75,7 +75,7 @@
             </div>
             <div class="modal-body">
             <form action="" method="post" id="insert_form">
-            <input type="hidden" name="nidn_dosen" id="nidn_dosen">
+            
                     <div class="form-group">
                         <label for="">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama">
@@ -97,7 +97,7 @@
                         <input type="text" class="form-control" id="alamat" name="alamat">
                     </div>
                     <div class="form-group">
-                        
+                    <input type="hidden" name="nidn_dosen" id="nidn_dosen">
                         <input type="submit" style="float:right;" id="insert" name="insert" value="Tambah" class="btn btn-success">
                     </div>
             </form>
@@ -130,7 +130,7 @@
                     $('#mata_kuliah').val(data.mata_kuliah);
                     $('#alamat').val(data.alamat);
                     $('#nidn_dosen').val(data.nidn);
-                    $('#insert').val("Edit")
+                    $('#insert').val("EDIT");
                     $('#add_data_Modal').modal("show")
                 }
             })
@@ -158,6 +158,7 @@
                         $('#insert_form')[0].reset()
                         $('#add_data_Modal').modal('hide')
                         $('#dosen_table').html(data)
+                        location.reload(true)
                     }
                 })
             }

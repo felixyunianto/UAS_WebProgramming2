@@ -11,20 +11,22 @@
         $password = mysqli_real_escape_string($koneksi, $_POST['password']);
         $mata_kuliah = mysqli_real_escape_string($koneksi, $_POST['mata_kuliah']);
         $alamat = mysqli_real_escape_string($koneksi, $_POST['alamat']);
+        $undeleted = 'undeleted';
 
         
-        if($_nidn !== ""){
+        if($nidn !== ""){
             $query = "UPDATE dosen 
             SET nama='$nama',
             email='$email',
             password='$password',
             mata_kuliah='$mata_kuliah',
-            alamat='$alamat'
+            alamat='$alamat',
+            status='$undeleted'
             WHERE nidn='$nidn'";
             $message = "Data telah diubah";
         }else {
-            $query = "INSERT INTO dosen (nidn, nama, email, password, mata_kuliah, alamat) 
-                VALUES (NULL,'$nama','$email','$password','$mata_kuliah','$alamat')";
+            $query = "INSERT INTO dosen (nidn, nama, email, password, mata_kuliah, alamat, status) 
+                VALUES (NULL,'$nama','$email','$password','$mata_kuliah','$alamat','$undeleted')";
                 $message = "Data telah ditambahkan!";
         }
         
@@ -34,7 +36,7 @@
         if(mysqli_query($koneksi, $query))
         {
             $output .= '<label class="text-success">'.$message.'</label>';
-            $select_query = "SELECT * FROM dosen ORDER BY nidn DESC";
+            $select_query = "SELECT * FROM dosen WHERE status='undeleted' ORDER BY nidn DESC";
             $result = mysqli_query($koneksi, $select_query);
             $output .= '
             <table class="table table-bordered">
