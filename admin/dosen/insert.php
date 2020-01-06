@@ -24,10 +24,12 @@
             status='$undeleted'
             WHERE nidn='$nidn'";
             $message = "Data telah diubah";
+            $query_log = "INSERT INTO log_aktivitas VALUES('$time','Update Dosen $nama.','Administrator')";
         }else {
             $query = "INSERT INTO dosen (nidn, nama, email, password, mata_kuliah, alamat, status) 
                 VALUES (NULL,'$nama','$email','$password','$mata_kuliah','$alamat','$undeleted')";
                 $message = "Data telah ditambahkan!";
+                $query_log = "INSERT INTO log_aktivitas VALUES('$time','Tambah Dosen $nama.','Administrator')";
         }
         
         
@@ -35,6 +37,8 @@
 
         if(mysqli_query($koneksi, $query))
         {
+
+            mysqli_query($koneksi, $query_log);
             $output .= '<label class="text-success">'.$message.'</label>';
             $select_query = "SELECT * FROM dosen WHERE status='undeleted' ORDER BY nidn DESC";
             $result = mysqli_query($koneksi, $select_query);

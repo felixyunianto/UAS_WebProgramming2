@@ -79,6 +79,10 @@
                                 class="nav-icon i-Computer-Secure"></i><span class="nav-text">Absensi</span></a>
                         <div class="triangle"></div>
                     </li>
+                    <li class="nav-item"><a class="nav-item-hold" href="index.php?page=log_aktivitas"><i
+                                class="nav-icon i-Computer-Secure"></i><span class="nav-text">History</span></a>
+                        <div class="triangle"></div>
+                    </li>
 
                 </ul>
             </div>
@@ -105,6 +109,9 @@
                         break;		
                         case 'matakuliah':
                             include "./matakuliah/index.php";
+                        break;
+                        case 'log_aktivitas':
+                            include "log_aktivitas.php";
                         break;
                         default:
                             echo "<center><h3>Maaf. Halaman tidak di temukan !</h3></center>";

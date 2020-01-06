@@ -15,11 +15,13 @@
 </head>
 
 <body>
-<div class="container" style="width: 700px">
+    <div class="container" style="width: 700px">
+        <button data-toggle="modal" data-target="#restore_modal">Restore</button>
         <h3 align="center"> Data Mahasiswa </h3>
-        <br/>
-        <button style="float:right" type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-info btn-xs"> Tambah </button>
-        <br/><br/>
+        <br />
+        <button style="float:right" type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal"
+            class="btn btn-info btn-xs"> Tambah </button>
+        <br /><br />
         <div class="table-responsive" id="mahasiswa_table">
             <table class="table table-bordered">
                 <tr>
@@ -52,7 +54,44 @@
 </body>
 
 </html>
-
+<div class="modal fade" id="restore_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Delete</h4>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Nama</td>
+                            <td>Opsi</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $deleted = 'deleted'; 
+                        $query_delete = "SELECT * FROM mahasiswa WHERE deleted='deleted'";
+                        $hasil = mysqli_query($koneksi,$query_delete);
+                        while($h = mysqli_fetch_array($hasil))
+                        {
+                        ?>
+                        <tr>
+                            <td><?php echo $h['nama']; ?></td>
+                            <td><button id="<?php echo $h['nim'] ?>"
+                                    class="btn btn-info btn-xs btn_restore">RESTORE</button></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="dataModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -76,8 +115,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-            <form action="" method="post" id="insert_form">
-            
+                <form action="" method="post" id="insert_form">
+
                     <div class="form-group">
                         <label for="">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama">
@@ -107,45 +146,50 @@
                         <input type="text" class="form-control" id="semester" name="semester">
                     </div>
                     <div class="form-group">
-                    <input type="hidden" name="nim_mahasiswa" id="nim_mahasiswa">
-                        <input type="submit" style="float:right;" id="insert" name="insert" value="Tambah" class="btn btn-success">
+                        <input type="hidden" name="nim_mahasiswa" id="nim_mahasiswa">
+                        <input type="submit" style="float:right;" id="insert" name="insert" value="Tambah"
+                            class="btn btn-success">
                     </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function(){
-        $('#add').click(function(){  
-           $('#insert').val("Insert");  
-           $('#insert_form')[0].reset();  
-      });
+    $(document).ready(function () {
+        $('#add').click(function () {
+            $('#insert').val("Insert");
+            $('#insert_form')[0].reset();
+        });
 
-        $('.view_data').click(function(){
+        $('.view_data').click(function () {
             var nim_mahasiswa = $(this).attr("id");
 
             $.ajax({
                 url: "mahasiswa/select.php",
                 method: "POST",
-                data:{nim_mahasiswa:nim_mahasiswa},
-                success: function(data){
+                data: {
+                    nim_mahasiswa: nim_mahasiswa
+                },
+                success: function (data) {
                     $('#mahasiswa_detail').html(data)
                     $('#dataModal').modal('show')
                 }
             })
         })
 
-        $(document).on('click', '.edit_data', function(){
+        $(document).on('click', '.edit_data', function () {
             var nim_mahasiswa = $(this).attr("id");
 
             $.ajax({
                 url: "mahasiswa/fetch.php",
                 method: "POST",
-                data:{nim_mahasiswa:nim_mahasiswa},
+                data: {
+                    nim_mahasiswa: nim_mahasiswa
+                },
                 dataType: "json",
-                success: function(data){
+                success: function (data) {
                     $('#nama').val(data.nama);
                     $('#kelas').val(data.kelas);
                     $('#email').val(data.email);
@@ -160,29 +204,28 @@
             })
         })
 
-        $('#insert_form').on('submit', function(event){
+        $('#insert_form').on('submit', function (event) {
             event.preventDefault();
-            if($('#nama').val()== ''){
+            if ($('#nama').val() == '') {
                 alert("Nama tidak boleh kosong!")
-            }else if($('#kelas').val()==''){
+            } else if ($('#kelas').val() == '') {
                 alert("Kelas tidak boleh kosong!")
-            }else if($('#email').val() == ''){
+            } else if ($('#email').val() == '') {
                 alert("Email tidak boleh kosong!")
-            }else if($('#password').val() == ''){
+            } else if ($('#password').val() == '') {
                 alert("Password tidak boleh kosong!")
-            }else if($('#no_hp').val() == ''){
+            } else if ($('#no_hp').val() == '') {
                 alert("No Handphone tidak boleh kosong!")
-            }else if($('#alamat').val() == ''){
+            } else if ($('#alamat').val() == '') {
                 alert("Alamat tidak boleh kosong!")
-            }else if($("#semester").val() == ''){
+            } else if ($("#semester").val() == '') {
                 alert("Semester tidak boleh kosong!")
-            }else{
+            } else {
                 $.ajax({
                     url: "mahasiswa/insert.php",
                     method: "POST",
                     data: $('#insert_form').serialize(),
-                    success: function(data)
-                    {
+                    success: function (data) {
                         $('#insert_form')[0].reset()
                         $('#add_data_Modal').modal('hide')
                         $('#mahasiswa_table').html(data)
@@ -191,20 +234,37 @@
                 })
             }
         })
-        $('.hapus_data').click(function(){
+        $('.hapus_data').click(function () {
             var nim_mahasiswa = $(this).attr("id");
 
             $.ajax({
                 url: "mahasiswa/soft_delete.php",
                 method: "POST",
-                data:{nim_mahasiswa:nim_mahasiswa},
-                success:function(){
+                data: {
+                    nim_mahasiswa: nim_mahasiswa
+                },
+                success: function () {
                     alert("Data Berhasil dihapus")
                     location.reload(true)
                 }
             })
         })
 
+        $('.btn_restore').click(function () {
+            var nim_mahasiswa = $(this).attr("id");
+
+            $.ajax({
+                url: "mahasiswa/restore.php",
+                method: "POST",
+                data: {
+                    nim_mahasiswa: nim_mahasiswa
+                },
+                success: function () {
+                    alert("Data Berhasil dikembalikan")
+                    location.reload(true)
+                }
+            })
+        })
+
     })
-    
 </script>

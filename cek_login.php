@@ -27,7 +27,7 @@ $matkul = mysqli_fetch_array($data4);
 if(mysqli_num_rows($data) == 1 ){
 	date_default_timezone_set("Asia/Jakarta");
 	$time = date('Y-m-d H:i:s');
-	$query_admin = "INSERT INTO log_aktivitas VALUES('$time','Login','".$_SESSION['nama']."')";
+	$query_admin = "INSERT INTO log_aktivitas VALUES('$time','Login','".$admin['nama']."')";
 	// echo $query_admin;
 	mysqli_query($koneksi, $query_admin);
 	$_SESSION['id']= $admin['id'];

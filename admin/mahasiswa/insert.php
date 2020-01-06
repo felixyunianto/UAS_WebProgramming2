@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("Asia/Jakarta");
+$time = date('Y-m-d H:i:s');
     include "koneksi.php";
 
     if(!empty($_POST)){
@@ -27,15 +29,19 @@
             deleted='$undeleted'
             WHERE nim='$nim'";
             $message = "Data telah diubah";
+
+            $query_log = "INSERT INTO log_aktivitas VALUES('$time','Update Mahasiswa $nama.','Administrator')";
         }else {
             $query = "INSERT INTO mahasiswa (nim, nama,kelas, email, password, no_hp, alamat,semester, deleted) 
                 VALUES (NULL,'$nama','$kelas','$email','$password','$no_hp','$alamat','$semester','$undeleted')";
                 $message = "Data telah ditambahkan!";
+                $query_log = "INSERT INTO log_aktivitas VALUES('$time','Tambah Mahasiswa $nama.','Administrator')";
         }
         
 
                 if(mysqli_query($koneksi, $query))
                 {
+                    mysqli_query($koneksi, $query_log);
                     $output .= '<label class="text-success">'.$message.'</label>';
                     $select_query = "SELECT * FROM mahasiswa WHERE status='undeleted' ORDER BY nim DESC";
                     $result = mysqli_query($koneksi, $select_query);
