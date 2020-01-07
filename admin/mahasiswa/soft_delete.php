@@ -6,8 +6,13 @@ if(isset($_POST["nim_mahasiswa"]))
     $output = '';
     $deleted = 'deleted';
     $query = "UPDATE mahasiswa SET deleted='$deleted' WHERE nim = '".$_POST["nim_mahasiswa"]."'";
+    $nim = $_POST['nim_mahasiswa'];
     $result = mysqli_query($koneksi , $query);
+    date_default_timezone_set("Asia/Jakarta");
+    $time = date('Y-m-d H:i:s');
+    $query_log = "INSERT INTO log_aktivitas VALUES('$time','Hapus Mahasiswa $nim','Administrator')";
     if($result){
+        mysqli_query($koneksi, $query_log);
         $output .= '<label class="text-success">'.$message.'</label>';
             $select_query = "SELECT * FROM mahasiswa ORDER BY nim DESC";
             $result = mysqli_query($koneksi, $select_query);

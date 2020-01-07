@@ -109,7 +109,7 @@
                 <button class="close" type="button" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-            <table>
+            <table class="table table-bordered">
                     <thead>
                         <tr>
                             <td>Nama</td>

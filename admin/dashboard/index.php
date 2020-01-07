@@ -50,7 +50,7 @@
     <div class="separator-breadcrumb border-top"></div>
     <div class="row">
         <!-- ICON BG-->
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center"><i class="i-Boy"></i>
                     <div class="content">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center"><i class="i-Business-Man"></i>
                     <div class="content">
@@ -90,26 +90,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center"><i class="i-Checkout-Basket"></i>
+                <div class="card-body text-center"><i class="i-Library"></i>
                     <div class="content">
-                        <p class="text-muted mt-2 mb-0">Orders</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">80</p>
+                        <p class="text-muted mt-2 mb-0">MatKul</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">
+                            <?php
+                                 include "../koneksi.php";
+
+                                 $sql = "SELECT count(*) AS jumlah FROM matkul";
+                                 $query = mysqli_query($koneksi, $sql);
+                                 $result = mysqli_fetch_array($query);
+                                 echo "{$result['jumlah']}";
+                            ?>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center"><i class="i-Money-2"></i>
-                    <div class="content">
-                        <p class="text-muted mt-2 mb-0">Expense</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">$1200</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </body>
 

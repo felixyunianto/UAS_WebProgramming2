@@ -7,7 +7,11 @@ if(isset($_POST["nidn_dosen"]))
     $deleted = 'deleted';
     $query = "UPDATE dosen SET status='$deleted' WHERE nidn = '".$_POST["nidn_dosen"]."'";
     $result = mysqli_query($koneksi , $query);
+    date_default_timezone_set("Asia/Jakarta");
+    $time = date('Y-m-d H:i:s');
+    $query_log = "INSERT INTO log_aktivitas VALUES('$time','Hapus Dosen $nim.','Administrator')";
     if($result){
+        mysqli_query($koneksi, $query_log);
         $output .= '<label class="text-success">'.$message.'</label>';
             $select_query = "SELECT * FROM dosen ORDER BY nidn DESC";
             $result = mysqli_query($koneksi, $select_query);

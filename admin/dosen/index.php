@@ -15,6 +15,7 @@
 <body>
     <br /> <br />
     <div class="container" style="width: 700px">
+    <button data-toggle="modal" data-target="#restore_modal">Restore</button>
         <h3 align="center"> Data Dosen </h3>
         <br/>
         <button style="float:right" type="button" name="add" id="add" data-toggle="modal" data-target="#add_data_Modal" class="btn btn-info btn-xs"> Tambah </button>
@@ -105,6 +106,44 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="restore_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Delete</h4>
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered"> 
+                    <thead>
+                        <tr>
+                            <td>Nama</td>
+                            <td>Opsi</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $deleted = 'deleted'; 
+                        $query_delete = "SELECT * FROM dosen WHERE status='deleted'";
+                        $hasil = mysqli_query($koneksi,$query_delete);
+                        while($h = mysqli_fetch_array($hasil))
+                        {
+                        ?>
+                        <tr>
+                            <td><?php echo $h['nama']; ?></td>
+                            <td><button id="<?php echo $h['nidn'] ?>"
+                                    class="btn btn-info btn-xs btn_restore">RESTORE</button></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -191,6 +230,22 @@
                 data:{nidn_dosen:nidn_dosen},
                 success:function(){
                     alert("Data Berhasil dihapus")
+                    location.reload(true)
+                }
+            })
+        })
+
+        $('.btn_restore').click(function () {
+            var nidn = $(this).attr("id");
+
+            $.ajax({
+                url: "dosen/restore.php",
+                method: "POST",
+                data: {
+                    nidn:nidn
+                },
+                success: function () {
+                    alert("Data Berhasil dikembalikan")
                     location.reload(true)
                 }
             })
